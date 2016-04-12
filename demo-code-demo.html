@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+  <button class="demo-code-button">Hit it fam!</button>
+<div class="demo-code">
+    <div class="test-class">
+        <h3>Hello</h3>
+        <p>Here is some delicious Markup</p>
+    </div>
+</div>
+  
+    
+</body>
+    
+    
+<script src="https://code.jquery.com/jquery-2.2.2.js"   integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE="   crossorigin="anonymous"></script>
+
+<script> 
+$(document).ready(function(){
+
+    var pre = " pre"  
+    var numItems = $('.demo-code').length
+    var myIdArray = [];
+    var myBtnArray = [];  
+
+        var addDemoID = document.getElementsByClassName("demo-code");
+        $('.demo-code-button').css("cursor", "pointer");
+        var addButtonID = document.getElementsByClassName("demo-code-button");
+    
+    for (var i=0; i<numItems; i++){
+//create an array
+        myIdArray.push("#demo-id-" + (i+1))
+        myBtnArray.push("#button-id-" +(i+1))
+//set the ids for each demo
+        addDemoID[i].setAttribute("id", ("demo-id-" + (i+1)));
+        addButtonID[i].setAttribute("id", ("button-id-" + (i+1)));
+    }
+//create a function to duplicate the html and append it as <pre> code
+    function createCodeDemo(i){
+
+        $(myIdArray[i]).wrapInner("<div class='demo-code-wrapper'></div>")
+        $(myIdArray[i]).append("<pre>" + $(myIdArray[i]).find("*").html() + "</pre>");
+        
+        $(myIdArray[i].concat(pre)).hide()
+        $(myBtnArray[i]).click(function(){
+            $(myIdArray[i].concat(pre)).slideToggle();
+        });
+        //render the <pre> tags as html
+        $(myIdArray[i].concat(pre)).html($(myIdArray[i].concat(pre)).html().replace(/</g, '&lt;'));
+    }
+    //start the loop
+    for (var i=0; i<numItems; i++){ 
+        createCodeDemo(i);
+    }              
+});
+</script>
+    
+</html>
+
